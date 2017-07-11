@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>answer</title>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/peerjs/0.3.14/peer.min.js"></script>
+  </head>
+  <body>
+<div id="vid"></div>
+    <script>
+    let peer = new Peer('webinarxxx', {key: 'lwjd5qra8257b9'});
+      document.querySelector('#vid').innerHTML = `loading...`
+    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+peer.on('call', function(call) {
+  navigator.getUserMedia({video: true, audio: true}, function(stream) {
+    call.answer(stream); // Answer the call with an A/V stream.
+    call.on('stream', function(remoteStream) {
+      // Show stream in some <video> element.
+      document.querySelector('#vid').innerHTML = `<video src="${URL.createObjectURL(remoteStream)}"></video>`
+    });
+  }, function(err) {
+    console.log('Failed to get local stream' ,err);
+  });
+});
+
+    </script>
+
+  </body>
+</html>
